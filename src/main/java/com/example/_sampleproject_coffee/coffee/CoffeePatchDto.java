@@ -26,7 +26,8 @@ public class CoffeePatchDto {
     //“”(X)
     //“ ” (X)
 
-    @Pattern(regexp = "^\\S+(\\s?\\S+)*$",message = "공백 확인하세욧")
+    @Pattern(regexp = "^([A-Za-z])+(\\s?([A-Za-z])+)*$",message = "공백 확인하세욧")
+
     private String engName;
     //Request Body에 선택적으로 포함될 수 있습니다(포함될 수도 있고 그렇지 않을 수도 있다).
     //즉, Request Body에 포함되지 않으면 유효성 검증을 하지 않거나 항상 검증을 통과해야 합니다.
