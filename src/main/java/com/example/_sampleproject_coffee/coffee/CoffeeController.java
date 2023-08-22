@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class CoffeeController {
 
 
     @PostMapping
-    public ResponseEntity postCoffee(@RequestBody CoffeePostDto coffeePostDto) {
+    public ResponseEntity postCoffee(@Valid @RequestBody CoffeePostDto coffeePostDto) {
         //RequestParam -> CoffeePostDto 로 전환
         // 응답 객체 Map -> CoffeePostDto 전환
 
