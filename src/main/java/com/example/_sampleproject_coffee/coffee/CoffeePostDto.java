@@ -26,7 +26,6 @@ public class CoffeePostDto {
 
 
 
-
     @NotNull
     @NotBlank
     @Pattern(regexp = "^([A-Za-z])+(\\s?([A-Za-z])+)*$",message = "공백 확인하세욧")
@@ -56,6 +55,8 @@ public class CoffeePostDto {
     //“ Cafe Latte       ” (X)
     //“ Cafe Latte ” (X)
 
+
+    //@NotBlank > String 에서만 사용 가능
     @NotNull
     @Range(min=100, max=50000, message = "숫자 범위 틀리다")
     private int price;
