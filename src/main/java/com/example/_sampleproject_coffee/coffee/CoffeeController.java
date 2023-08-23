@@ -31,7 +31,7 @@ public class CoffeeController {
 
 
     @PostMapping
-    public ResponseEntity<> postCoffee(@Valid @RequestBody CoffeePostDto coffeePostDto) {
+    public ResponseEntity postCoffee(@Valid @RequestBody CoffeePostDto coffeePostDto) {
         //RequestParam -> CoffeePostDto 로 전환
         // 응답 객체 Map -> CoffeePostDto 전환
 
@@ -42,7 +42,7 @@ public class CoffeeController {
     }
 
     @PatchMapping("/{coffee-id}")
-    public ResponseEntity<> patchCoffee(@PathVariable("coffee-id") @Positive long coffeeId,
+    public ResponseEntity patchCoffee(@PathVariable("coffee-id") @Positive long coffeeId,
                                               @RequestBody CoffeePatchDto coffeePatchDto) {
         //양수만 허용해야 합니다
 //        coffeePatchDto.setCoffeeId(coffeeId);
@@ -78,9 +78,14 @@ public class CoffeeController {
         //                .collect(Collectors.toList());
 
 
-        List<Coffee> coffees = coffeeService.findCoffees();
-        List<CoffeeResponseDto> response = coffees.stream().map(coffee -> coffeeMapper.coffeeToCoffeeResponseDto(coffee))
-                .collect(Collectors.toList());
+//        List<Coffee> coffees = coffeeService.findCoffees();
+//        List<CoffeeResponseDto> response = coffees.stream().map(coffee -> coffeeMapper.coffeeToCoffeeResponseDto(coffee))
+//                .collect(Collectors.toList());
+//
+
+
+        List<CoffeeResponseDto> response = coffeeMapper.coffeeToCoffeeResponseDtos(coffeeService.findCoffees());
+
 
 
         return new ResponseEntity<>(response, HttpStatus.OK);
