@@ -1,19 +1,45 @@
-package com.example._sampleproject_coffee.coffee;
+package com.example._sampleproject_coffee.coffee.DTO;
 
+import com.example._sampleproject_coffee.ResponseTime;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CoffeePatchDto {
 
     private long coffeeId;
 
 
+
+
+    private String responseTime;
+
+    public String getResponseTime() {
+        return responseTime;
+    }
+
+    public void setResponseTime(String responseTime) {
+        this.responseTime = responseTime;
+    }
+    //    public String getResponseTime() {
+//        Date today = new Date();
+//        return String.valueOf(today);
+//    }
 
 
     @NotBlank
@@ -51,36 +77,6 @@ public class CoffeePatchDto {
     //Request Body에 포함되는 경우
     //100 이상 50000 이하의 숫자만 허용합니다.
 
-    public long getCoffeeId() {
-        return coffeeId;
-    }
 
-    public void setCoffeeId(long coffeeId) {
-        this.coffeeId = coffeeId;
-    }
-
-    public String getKorName() {
-        return KorName;
-    }
-
-    public void setKorName(String korName) {
-        KorName = korName;
-    }
-
-    public String getEngName() {
-        return engName;
-    }
-
-    public void setEngName(String engName) {
-        this.engName = engName;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }
 

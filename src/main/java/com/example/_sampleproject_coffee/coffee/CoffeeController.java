@@ -1,15 +1,15 @@
 package com.example._sampleproject_coffee.coffee;
 
+import com.example._sampleproject_coffee.coffee.DTO.CoffeePatchDto;
+import com.example._sampleproject_coffee.coffee.DTO.CoffeePostDto;
+import com.example._sampleproject_coffee.coffee.DTO.CoffeeResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/coffees")
@@ -17,13 +17,19 @@ import java.util.Map;
 public class CoffeeController {
 
 
+
+
     @PostMapping
-    public ResponseEntity postCoffee(@Valid @RequestBody CoffeePostDto coffeePostDto) {
+    public ResponseEntity<CoffeeResponseDto> postCoffee(@Valid @RequestBody CoffeePostDto coffeePostDto) {
         //RequestParam -> CoffeePostDto 로 전환
         // 응답 객체 Map -> CoffeePostDto 전환
 
+        CoffeeResponseDto responseDto = new CoffeeResponseDto();
+        responseDto.setName(coffeePostDto.getKorName());
 
-        return new ResponseEntity<>(coffeePostDto, HttpStatus.CREATED);
+
+
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{coffee-id}")

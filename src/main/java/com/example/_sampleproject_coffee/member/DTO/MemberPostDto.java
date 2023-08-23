@@ -1,4 +1,4 @@
-package com.example._sampleproject_coffee.member;
+package com.example._sampleproject_coffee.member.DTO;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
