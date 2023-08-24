@@ -1,23 +1,29 @@
-package com.example._sampleproject_coffee.member;
+package com.example._sampleproject_coffee.member.controller.v7;
 
 import com.example._sampleproject_coffee.member.DTO.MemberPatchDto;
 import com.example._sampleproject_coffee.member.DTO.MemberPostDto;
 import com.example._sampleproject_coffee.member.DTO.MemberResponseDto;
-import com.example._sampleproject_coffee.service.MemberSerivce;
+import com.example._sampleproject_coffee.member.entity.Member;
+import com.example._sampleproject_coffee.member.service.MemberSerivce;
+import com.example._sampleproject_coffee.response.v1.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import com.example._sampleproject_coffee.mapper.MemberMapper;
+import com.example._sampleproject_coffee.member.mapper.MemberMapper;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/v4/members")
+@RequestMapping(path = "/v8/members")
 @Validated
+
 public class MemberController {
     private final MemberSerivce memberSerivce;
     private final MemberMapper memberMapper;
@@ -50,7 +56,7 @@ public class MemberController {
 
     @PatchMapping("/{member-id}")
     public  ResponseEntity patchMember (@PathVariable("member-id") @Min(1) long memberId,
-                                  @Valid @RequestBody MemberPatchDto memberPatchDto){
+                                        @Valid @RequestBody MemberPatchDto memberPatchDto){
 
 //        memberPatchDto.setMemberId(memberId);
 //        Member member = new Member();
@@ -90,87 +96,28 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+//
+//    @ExceptionHandler
+//    public ResponseEntity handleException (MethodArgumentNotValidException e){
+//        final  List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+//
+//        List<ErrorResponse.FieldError> errors = fieldErrors.stream()
+//                .map(error -> new ErrorResponse.FieldError(
+//                        error.getField(),
+//                        error.getRejectedValue(),
+//                        error.getDefaultMessage()
+//                )).collect(Collectors.toList());
+//
+//        return  new ResponseEntity(new ErrorResponse(errors), HttpStatus.BAD_REQUEST);
+//    }
+//
+//    @ExceptionHandler
+//    public ResponseEntity handleException (ConstraintViolationException e){
+//        //ConstraintViolationException 클래스는 getBindingResult().getFieldErrors() 로 에러 정보를 얻을 수 없다.
+//        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//    }
 
 
-//    private final Map<String, Map<String, Object>> members = new HashMap<>();
-//
-//    @PostConstruct
-//    public void init() {
-//        Map<String, Object> member1 = new HashMap<>();
-//        String memberId = "1L";
-//        member1.put("memberId", memberId);
-//        member1.put("email", "hgd@gmail.com");
-//        member1.put("name", "홍길동");
-//        member1.put("phone", "010-1234-5678");
-//
-//        members.put(memberId, member1);
-//    }
-//
-//
-//    @PostMapping
-//    public ResponseEntity postMember(@RequestParam("memberId") String memberId,
-//                                     @RequestParam("email") String email,
-//                                     @RequestParam("name") String name,
-//                                     @RequestParam("phone") String phoneNumber) {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("memberId",memberId);
-//        map.put("email", email);
-//        map.put("name", name);
-//        map.put("phone", phoneNumber);
-//        members.put(memberId, map);
-//
-//        return new ResponseEntity<>(members, HttpStatus.CREATED);
-//    }
-//
-//    @GetMapping("/{member-id}")
-//    public ResponseEntity getMember(@PathVariable("member-id") String memberId) {
-//        System.out.println("# memberId: " + memberId);
-//
-//        // not implementation
-//        return new ResponseEntity<>(members.get(memberId), HttpStatus.OK);
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity getMembers() {
-//        System.out.println("# get Members");
-//
-//        // not implementation
-//
-//        return new ResponseEntity<>(members, HttpStatus.OK);
-//    }
-//
-//
-//    //---------------- 여기서 부터 아래에 코드를 구현하세요! -------------------//
-//    // 1. 회원 정보 수정을 위한 핸들러 메서드 구현
-//
-//    @PatchMapping("/{member-id}")
-//    public ResponseEntity parhMember(
-//            @PathVariable("member-id") String memberId,
-//            @RequestParam String phone
-//    ) {
-//
-//        Map<String, Object> member = members.get(memberId);
-//
-//        if (member == null) {
-//            return new ResponseEntity(HttpStatus.NOT_FOUND);
-//        } else {
-//            member.put("phone", phone);
-//        }
-//        return new ResponseEntity(member, HttpStatus.OK);
-//
-//    }
-//
-//
-//    // 2. 회원 정보 삭제를 위한 핸들러 메서드 구현
-//    @DeleteMapping("/{member-id}")
-//    public ResponseEntity deleteMember(@PathVariable("member-id") String memberId) {
-//        if (members.containsKey(memberId)) {
-//            members.remove(memberId);
-//        } else {
-//            return new ResponseEntity(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity(HttpStatus.NO_CONTENT);
-//    }
 
 
 }

@@ -1,7 +1,7 @@
-package com.example._sampleproject_coffee.mapper;
+package com.example._sampleproject_coffee.member.mapper;
 
 
-import com.example._sampleproject_coffee.member.Member;
+import com.example._sampleproject_coffee.member.entity.Member;
 import com.example._sampleproject_coffee.member.DTO.MemberPatchDto;
 import com.example._sampleproject_coffee.member.DTO.MemberPostDto;
 import com.example._sampleproject_coffee.member.DTO.MemberResponseDto;

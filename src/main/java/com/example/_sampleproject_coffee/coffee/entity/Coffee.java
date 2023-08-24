@@ -1,4 +1,4 @@
-package com.example._sampleproject_coffee.coffee;
+package com.example._sampleproject_coffee.coffee.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

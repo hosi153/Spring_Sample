@@ -1,10 +1,11 @@
-package com.example._sampleproject_coffee.coffee;
+package com.example._sampleproject_coffee.coffee.controller;
 
 import com.example._sampleproject_coffee.coffee.DTO.CoffeePatchDto;
 import com.example._sampleproject_coffee.coffee.DTO.CoffeePostDto;
 import com.example._sampleproject_coffee.coffee.DTO.CoffeeResponseDto;
-import com.example._sampleproject_coffee.mapper.CoffeeMapper;
-import com.example._sampleproject_coffee.service.CoffeeService;
+import com.example._sampleproject_coffee.coffee.entity.Coffee;
+import com.example._sampleproject_coffee.coffee.mapper.CoffeeMapper;
+import com.example._sampleproject_coffee.coffee.service.CoffeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v5/coffees")

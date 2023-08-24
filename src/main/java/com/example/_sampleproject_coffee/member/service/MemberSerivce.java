@@ -1,7 +1,7 @@
-package com.example._sampleproject_coffee.service;
+package com.example._sampleproject_coffee.member.service;
 
 
-import com.example._sampleproject_coffee.member.Member;
+import com.example._sampleproject_coffee.member.entity.Member;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
