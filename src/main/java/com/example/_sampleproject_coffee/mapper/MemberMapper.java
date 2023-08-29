@@ -1,7 +1,6 @@
 package com.example._sampleproject_coffee.mapper;
 
 
-
 import com.example._sampleproject_coffee.member.Member;
 import com.example._sampleproject_coffee.member.DTO.MemberPatchDto;
 import com.example._sampleproject_coffee.member.DTO.MemberPostDto;
