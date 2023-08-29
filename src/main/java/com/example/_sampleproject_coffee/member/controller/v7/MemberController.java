@@ -4,7 +4,7 @@
 //import com.example._sampleproject_coffee.member.DTO.MemberPostDto;
 //import com.example._sampleproject_coffee.member.DTO.MemberResponseDto;
 //import com.example._sampleproject_coffee.member.entity.Member;
-//import com.example._sampleproject_coffee.member.service.MemberSerivce;
+//import com.example._sampleproject_coffee.member.service.MemberService;
 //import com.example._sampleproject_coffee.response.v1.ErrorResponse;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
@@ -24,11 +24,11 @@
 //@Validated
 //
 //public class MemberController {
-//    private final MemberSerivce memberSerivce;
+//    private final MemberService memberSerivce;
 //    private final MemberMapper memberMapper;
 //
 //    // (1) MemberMapper DI
-//    public MemberController(MemberSerivce memberSerivce, MemberMapper memberMapper){
+//    public MemberController(MemberService memberSerivce, MemberMapper memberMapper){
 //        this.memberSerivce = memberSerivce;
 //        this.memberMapper = memberMapper;
 //    }

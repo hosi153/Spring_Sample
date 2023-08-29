@@ -4,19 +4,18 @@ import com.example._sampleproject_coffee.member.DTO.MemberPatchDto;
 import com.example._sampleproject_coffee.member.DTO.MemberPostDto;
 import com.example._sampleproject_coffee.member.DTO.MemberResponseDto;
 import com.example._sampleproject_coffee.member.entity.Member;
-import com.example._sampleproject_coffee.member.service.MemberSerivce;
-import com.example._sampleproject_coffee.response.v1.ErrorResponse;
+import com.example._sampleproject_coffee.member.service.MemberService;
+import com.example._sampleproject_coffee.response.MultiResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import com.example._sampleproject_coffee.member.mapper.MemberMapper;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,12 +24,12 @@ import java.util.stream.Collectors;
 @Validated
 
 public class MemberController {
-    private final MemberSerivce memberSerivce;
+    private final MemberService memberService;
     private final MemberMapper memberMapper;
 
     // (1) MemberMapper DI
-    public MemberController(MemberSerivce memberSerivce, MemberMapper memberMapper){
-        this.memberSerivce = memberSerivce;
+    public MemberController(MemberService memberService, MemberMapper memberMapper){
+        this.memberService = memberService;
         this.memberMapper = memberMapper;
     }
     //Spring Bean에 등록된 MemberMapper 객체를 MemberController에서 사용하기 위해 DI 주입
@@ -44,7 +43,7 @@ public class MemberController {
 //        member.setPhone(member.getPhone());
 
         // (2) 매퍼를 이용해서 MemberPostDto를 Member로 변환
-        Member response = memberSerivce.createMember(memberMapper.memberPostDtoToMember(memberPostDto));
+        Member response = memberService.createMember(memberMapper.memberPostDtoToMember(memberPostDto));
         //MemberMapper 클래스를 이용해서 MemberPostDto 를 Member 로 변환
 
         // (3) 매퍼를 이용해서 Member를 MemberResponseDto로 변환
@@ -65,7 +64,7 @@ public class MemberController {
 //        member.setPhone(memberPatchDto.getPhone());
 
         // (4) 매퍼를 이용해서 MemberPatchDto를 Member로 변환
-        Member response = memberSerivce.updateMember(memberMapper.memberPatchDtoToMember(memberPatchDto));
+        Member response = memberService.updateMember(memberMapper.memberPatchDtoToMember(memberPatchDto));
 
         // (5) 매퍼를 이용해서 Member를 MemberResponseDto로 변환
         return  new ResponseEntity<>(response, HttpStatus.OK);
@@ -75,23 +74,24 @@ public class MemberController {
     @GetMapping("/{member-id}")
     public  ResponseEntity getMember(@PathVariable("member-id")long memberId){
         // (6) 매퍼를 이용해서 Member를 MemberResponseDto로 변환
-        return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(memberSerivce.findMember(memberId)), HttpStatus.OK);
+        return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(memberService.findMember(memberId)), HttpStatus.OK);
     }
     //다건 조회
     @GetMapping
-    public ResponseEntity getMembers(){
-        List<Member> members = memberSerivce.findMembers();
-        // (7) 매퍼를 이용해서 List<Member>를 MemberResponseDto로 변환
-        List<MemberResponseDto> response = members.stream().
-                map(member -> memberMapper.memberToMemberResponseDto(member))
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity getMembers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size) {
+        Page<Member> pageMembers = memberService.findMembers(page - 1, size);
+        List<Member> members = pageMembers.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(memberMapper.membersToMemberResponseDtos(members),
+                        pageMembers),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id")long memberId){
 
-        memberSerivce.deleteMember(memberId);
+        memberService.deleteMember(memberId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

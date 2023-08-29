@@ -1,6 +1,7 @@
 package com.example._sampleproject_coffee.coffee.DTO;
 
 import com.example._sampleproject_coffee.ResponseTime;
+import com.example._sampleproject_coffee.coffee.entity.Coffee;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,22 +25,6 @@ public class CoffeePatchDto {
 
     private long coffeeId;
 
-
-
-
-    private String responseTime;
-
-    public String getResponseTime() {
-        return responseTime;
-    }
-
-    public void setResponseTime(String responseTime) {
-        this.responseTime = responseTime;
-    }
-    //    public String getResponseTime() {
-//        Date today = new Date();
-//        return String.valueOf(today);
-//    }
 
 
     @NotBlank
@@ -77,6 +62,14 @@ public class CoffeePatchDto {
     //Request Body에 포함되는 경우
     //100 이상 50000 이하의 숫자만 허용합니다.
 
+
+    private Coffee.CoffeeStatus coffeeStatus;
+    public void setCoffeeId(long coffeeId){
+        this.coffeeId=coffeeId;
+    }
+    public Integer getPrice() {
+        return price;
+    }
 
 }
 
